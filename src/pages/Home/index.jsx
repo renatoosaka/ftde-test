@@ -1,10 +1,14 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 import * as S from "./styled";
 
+import pokemonLogo from '../../assets/images/pokemonLogo.png'
+
 const HomePage = () => (
   <S.HomeWrapper>
-    <h1>Home</h1>
+    <img src={pokemonLogo} alt="Pokemon" />
+    <Link to='/map'>Start</Link>
   </S.HomeWrapper>
 );
 
