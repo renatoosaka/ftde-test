@@ -41,3 +41,35 @@ export const SideBarItem = styled.li`
         margin-bottom: 1.6rem;
     }
 `;
+
+export const SideBarPokemonItem = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6.4rem;
+    height: 6.4rem;
+    border: 4px solid #00D68F;
+    border-radius: 12.8rem;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #004a45;
+    cursor: pointer;
+    transition: all .2s;
+    background-color: #F7F9FC;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &:not(last-of-type) {
+        margin-bottom: 1.6rem;
+    }
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    img {
+      width: 6rem;
+      height: 6rem;
+    }
+`;

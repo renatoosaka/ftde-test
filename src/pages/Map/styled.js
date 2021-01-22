@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import img from "assets/images/pageBackground.png";
+import pokemonTypes from 'utils/pokemonTypes'
 
 export const MapWrapper = styled.div`
   position: relative;
@@ -56,6 +57,21 @@ export const ModalContent = styled.div`
     line-height: 24px;
     text-align: center;
     color: #2E3A59;
+
+    text-transform: uppercase;
+
+    button {
+      border: none;
+      background-color: transparent;
+      margin-left: 16px;
+      cursor: pointer;
+
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
   }
 
   #pokemon-detail{
@@ -108,26 +124,6 @@ export const ModalContent = styled.div`
     flex-wrap: wrap;
 
     padding: 24px 0;
-
-    span {
-      padding: 8px 24px;
-      font-family: 'Open Sans';
-      font-weight: bold;
-      font-size: 12px;
-      line-height: 16px;
-
-      text-align: center;
-      text-transform: uppercase;
-
-      color: #FFFFFF;
-
-      background-color: #ccc;
-      border-radius: 42px;
-
-      & + span {
-        margin-left: 12px;
-      }
-    }
   }
 
   #pokemon-skills {
@@ -153,19 +149,46 @@ export const ModalContent = styled.div`
     }
   }
 
-  > button {
+  footer {
     position: fixed;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
+    bottom: 32px;
+    left: 0;
+    right: 0;
 
-    background-color: transparent;
-    border: none;
-
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     z-index: 11;
 
-    filter: drop-shadow(0px 0px 1px rgba(9, 30, 66, 0.31)), drop-shadow(0px 20px 32px rgba(9, 30, 66, 0.25));
+    button#pokeball {
+      background-color: transparent;
+      border: none;
+
+      cursor: pointer;
+
+      filter: drop-shadow(0px 0px 1px rgba(9, 30, 66, 0.31)), drop-shadow(0px 20px 32px rgba(9, 30, 66, 0.25));
+    }
+  }
+`
+
+export const PokemonType = styled.span`
+  padding: 8px 24px;
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #FFFFFF;
+
+  color: ${props => pokemonTypes[props.type].textColor};
+  background-color: ${props => pokemonTypes[props.type].backgroundColor};
+  border-radius: 42px;
+
+  & + span {
+    margin-left: 12px;
   }
 `

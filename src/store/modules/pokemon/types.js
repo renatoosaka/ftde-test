@@ -4,4 +4,9 @@ export const ActionTypes = {
   fetchRandomPokemonFailure: 'FETCH_RANDOM_POKEMON_FAILURE',
 
   cancelRandomPokemon: 'CANCEL_RANDOM_POKEMON',
+
+  addPokemonToSlot: 'ADD_POKEMON_TO_SLOT',
+
+  showPokemonFromSlot: 'SHOW_POKEMON_FROM_SLOT',
+  releasePokemonFromSlot: 'RELEASE_POKEMON_FROM_SLOT',
 }
