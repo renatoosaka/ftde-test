@@ -6,7 +6,7 @@ import Button from "components/Button";
 import iconPlus from "assets/images/plus.png";
 
 import * as S from "./styled";
-import { showPokemonFromSlot } from "store/modules/pokemon/actions";
+import { createPokemon, showPokemonFromSlot } from "store/modules/pokemon/actions";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,11 @@ const Sidebar = () => {
 
   const handleSelectPokemon = useCallback((index) => {
     dispatch(showPokemonFromSlot(index));
+  }, [dispatch]);
+
+  const handleCreatePokemon = useCallback(() => {
+    console.log('create pokemon')
+    dispatch(createPokemon());
   }, [dispatch]);
 
   return (
@@ -32,7 +37,7 @@ const Sidebar = () => {
         <img src={pokemon.avatar}  alt={pokemon.name} />
       </S.SideBarPokemonItem>
     ))}
-    <Button icon={iconPlus} />
+    <Button icon={iconPlus} onClick={handleCreatePokemon} />
   </S.SideBarWrapper>
   );
 }

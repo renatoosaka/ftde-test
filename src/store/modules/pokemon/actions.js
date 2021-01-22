@@ -1,7 +1,6 @@
 import { ActionTypes } from './types';
 
 export function fetchRandomPokemonRequest() {
-  console.log('action request')
   const pokemonRandomID = Math.floor(Math.random() * 807) + 1
 
   return {
@@ -82,5 +81,19 @@ export function updatePokemonData(pokemon) {
     payload: {
       pokemon
     }
+  }
+}
+
+export function createPokemon() {
+  return {
+    type: ActionTypes.createPokemon,
+    payload: {}
+  }
+}
+
+export function cancelCreatePokemon() {
+  return {
+    type: ActionTypes.cancelCreatePokemon,
+    payload: {}
   }
 }

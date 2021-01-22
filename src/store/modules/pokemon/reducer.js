@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   ashState: 0,
   isLoading: false,
   pokemon: null,
-  isEditing: false
+  isEditing: false,
+  isCreating: false,
 }
 
 const pokemon = (state = INITIAL_STATE, action) => {
@@ -92,6 +93,15 @@ const pokemon = (state = INITIAL_STATE, action) => {
         draft.pokemon = pokemon;
         draft.isEditing = false;
 
+        break;
+      }
+
+      case ActionTypes.createPokemon: {
+        draft.isCreating = true;
+        break;
+      }
+      case ActionTypes.cancelCreatePokemon: {
+        draft.isCreating = false;
         break;
       }
       default:

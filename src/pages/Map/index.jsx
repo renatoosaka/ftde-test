@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addPokemonToSlot, cancelRandomPokemon, editPokemonData, releasePokemonFromSlot } from "store/modules/pokemon/actions";
+import { addPokemonToSlot, cancelCreatePokemon, cancelRandomPokemon, editPokemonData, releasePokemonFromSlot } from "store/modules/pokemon/actions";
 
 import Modal from "components/Modal";
 import Sidebar from "components/Sidebar";
 import Title from "components/Title";
 import Button from "components/Button";
+import FormFull from "components/FormFull";
 import FormName from "components/FormName";
 import Ash from "components/Ash";
 
@@ -25,8 +26,16 @@ const MapPage = () => {
     return state.pokemon && !state.isLoading
   }, [state.isLoading, state.pokemon]);
 
+  const isShowCreatePokemonModal = useMemo(() => {
+    return state.isCreating
+  }, [state.isCreating]);
+
   const handleCloseRandomPokemonModal = useCallback(() => {
     dispatch(cancelRandomPokemon())
+  }, [dispatch]);
+
+  const handleCloseCreatePokemonModal = useCallback(() => {
+    dispatch(cancelCreatePokemon());
   }, [dispatch]);
 
   const handleAddPokemonToSlot = useCallback((pokemon) => {
@@ -110,6 +119,12 @@ const MapPage = () => {
         </Modal>
 
       )}
+
+      <Modal isShowing={isShowCreatePokemonModal} toggle={handleCloseCreatePokemonModal}>
+        <S.ModalContent>
+          <FormFull />
+        </S.ModalContent>
+      </Modal>
     </S.MapWrapper>
   );
 }
