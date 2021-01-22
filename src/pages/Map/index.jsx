@@ -1,12 +1,13 @@
 import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addPokemonToSlot, cancelRandomPokemon, releasePokemonFromSlot } from "store/modules/pokemon/actions";
+import { addPokemonToSlot, cancelRandomPokemon, editPokemonData, releasePokemonFromSlot } from "store/modules/pokemon/actions";
 
 import Modal from "components/Modal";
 import Sidebar from "components/Sidebar";
 import Title from "components/Title";
 import Button from "components/Button";
+import FormName from "components/FormName";
 import Ash from "components/Ash";
 
 import pokemonTypes from 'utils/pokemonTypes';
@@ -16,26 +17,29 @@ import * as S from "./styled";
 import pokeballImg from 'assets/images/pokeball.png'
 import editImg from 'assets/images/editIcon.png'
 
-
 const MapPage = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.pokemon);
 
   const isShowRandomPokemonModal = useMemo(() => {
     return state.pokemon && !state.isLoading
-  }, [state.isLoading, state.pokemon])
+  }, [state.isLoading, state.pokemon]);
 
   const handleCloseRandomPokemonModal = useCallback(() => {
     dispatch(cancelRandomPokemon())
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleAddPokemonToSlot = useCallback((pokemon) => {
     dispatch(addPokemonToSlot(pokemon))
-  }, [dispatch])
+  }, [dispatch]);
 
   const handleReleasePokemon = useCallback((pokemonID) => {
     dispatch(releasePokemonFromSlot(pokemonID))
-  }, [dispatch])
+  }, [dispatch]);
+
+  const handleEditPokemon = useCallback(() => {
+    dispatch(editPokemonData())
+  }, [dispatch]);
 
   return (
     <S.MapWrapper className="map">
@@ -49,14 +53,22 @@ const MapPage = () => {
               <img src={state.pokemon.avatar} alt={state.pokemon.name} />
             </div>
 
-            <h1>
-              {state.pokemon.name}
-              {state.pokemon.origin === 'slot' && (
-                <button type="button">
-                  <img src={editImg} alt='edit' />
-                </button>
+            <header>
+              {!state.isEditing && (
+                <h1>
+                  {state.pokemon.name}
+                  {state.pokemon.archived && state.pokemon.origin === 'remote' && (
+                    <button type="button" onClick={handleEditPokemon}>
+                      <img src={editImg} alt='edit' />
+                    </button>
+                  )}
+                </h1>
               )}
-            </h1>
+              {state.isEditing && state.pokemon.origin === 'remote' && (
+                <FormName />
+              )}
+            </header>
+
 
             <div id="pokemon-detail">
               <div>
@@ -84,13 +96,13 @@ const MapPage = () => {
             </div>
 
             <footer>
-              {state.pokemon.origin === 'remote' && (
+              {!state.pokemon.archived && (
                 <button type="button" id="pokeball" onClick={() => handleAddPokemonToSlot(state.pokemon)}>
                   <img src={pokeballImg} alt="Pokeball" />
                 </button>
               )}
 
-              {state.pokemon.origin === 'slot' && (
+              {state.pokemon.archived && (
                 <Button text='liberar pokemon' onClick={() => handleReleasePokemon(state.pokemon.id)} />
               )}
             </footer>

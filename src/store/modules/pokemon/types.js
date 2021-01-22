@@ -9,4 +9,8 @@ export const ActionTypes = {
 
   showPokemonFromSlot: 'SHOW_POKEMON_FROM_SLOT',
   releasePokemonFromSlot: 'RELEASE_POKEMON_FROM_SLOT',
+
+  editPokemonData: 'EDIT_POKEMON_DATA',
+  cancelEditPokemonData: 'CANCEL_EDIT_POKEMON_DATA',
+  updatePokemonData: 'UPDATE_POKEMON_DATA',
 }

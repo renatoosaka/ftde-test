@@ -61,3 +61,26 @@ export function releasePokemonFromSlot(pokemonID) {
     }
   }
 }
+
+export function editPokemonData() {
+  return {
+    type: ActionTypes.editPokemonData,
+    payload: {}
+  }
+}
+
+export function cancelEditPokemonData() {
+  return {
+    type: ActionTypes.cancelEditPokemonData,
+    payload: {}
+  }
+}
+
+export function updatePokemonData(pokemon) {
+  return {
+    type: ActionTypes.updatePokemonData,
+    payload: {
+      pokemon
+    }
+  }
+}

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   ashState: 0,
   isLoading: false,
   pokemon: null,
+  isEditing: false
 }
 
 const pokemon = (state = INITIAL_STATE, action) => {
@@ -17,12 +18,14 @@ const pokemon = (state = INITIAL_STATE, action) => {
         draft.isLoading = true;
         break;
       }
+
       case ActionTypes.fetchRandomPokemonSuccess: {
         const { pokemonData } = action.payload;
         const hpStatIndex = pokemonData.stats.findIndex(item => item.stat.name === 'hp');
 
         draft.pokemon = {
           origin: 'remote',
+          archived: false,
           id: pokemonData.id,
           avatar: pokemonData.sprites.other.dream_world.front_default || pokemonData.sprites.other["official-artwork"].front_default,
           name: pokemonData.name,
@@ -49,7 +52,7 @@ const pokemon = (state = INITIAL_STATE, action) => {
         if (draft.slots.length < draft.maxItemsInSlot) {
           draft.slots.push({
             ...pokemon,
-            origin: 'slot'
+            archived: true,
           });
           draft.pokemon = null;
         }
@@ -69,6 +72,26 @@ const pokemon = (state = INITIAL_STATE, action) => {
 
         draft.slots = draft.slots.filter(pokemon => pokemon.id !== pokemonID);
         draft.pokemon = null;
+        break;
+      }
+
+      case ActionTypes.editPokemonData: {
+        draft.isEditing = true;
+        break;
+      }
+
+      case ActionTypes.cancelEditPokemonData: {
+        draft.isEditing = false;
+        break;
+      }
+
+      case ActionTypes.updatePokemonData: {
+        const { pokemon } = action.payload;
+
+        draft.slots = draft.slots.map(item => item.id === pokemon.id ? pokemon : item);
+        draft.pokemon = pokemon;
+        draft.isEditing = false;
+
         break;
       }
       default:

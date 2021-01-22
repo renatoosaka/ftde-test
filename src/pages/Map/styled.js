@@ -47,9 +47,11 @@ export const ModalContent = styled.div`
     }
   }
 
-  h1 {
+  header {
     padding-top: 162px;
+  }
 
+  h1 {
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: bold;
