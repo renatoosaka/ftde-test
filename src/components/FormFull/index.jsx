@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -12,13 +13,14 @@ import DropdownPage from 'components/Dropdown';
 import * as S from './styled';
 
 import pokemonTypes from 'utils/pokemonTypes';
+import pokemonStats from 'utils/pokemonStats';
+
+import { addPokemonToSlot } from 'store/modules/pokemon/actions';
 
 import plusImg from 'assets/images/plus.png';
-import shieldImg from 'assets/images/shield.png';
-import speedImg from 'assets/images/speed.png';
-import swordImg from 'assets/images/sword.png';
 
 const schema = yup.object().shape({
+  avatar: yup.string().required(),
   name: yup.string().required(),
   attack: yup.string().required(),
   defense: yup.string().required(),
@@ -28,23 +30,56 @@ const schema = yup.object().shape({
   skill2: yup.string().required(),
   skill3: yup.string().required(),
   skill4: yup.string().required(),
-  specia_attack:yup.string().required(),
-  special_defense:yup.string().required(),
+  "special-attack":yup.string().required(),
+  "special-defense":yup.string().required(),
   speed: yup.string().required(),
   type: yup.string().required(),
   weight: yup.string().required(),
 });
 
 const FormFull = () => {
+  const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema)
   });
 
   const onSubmit = useCallback(data => {
-    // dispatch(updatePokemonData({...state.pokemon, name: data.name }))
-    console.log(data);
-  }, []);
+    const pokemonRandomID = Math.floor(Math.random() * 807) + 1000;
+
+    const types = [];
+    types.push(data.type);
+
+    const skills = [];
+    skills.push(data.skill1);
+    skills.push(data.skill2);
+    skills.push(data.skill3);
+    skills.push(data.skill4);
+
+    const stats = [];
+
+    Object.keys(pokemonStats).forEach(item => {
+      stats.push({
+        id: item,
+        value: data[item]
+      })
+    })
+
+    const pokemon = {
+      origin: 'user',
+      id: pokemonRandomID,
+      avatar: avatar && avatar.preview,
+      name: data.name,
+      hp: data.hp,
+      height:  data.height,
+      weight: data.weight,
+      types,
+      skills,
+      stats,
+    }
+
+    dispatch(addPokemonToSlot(pokemon))
+  }, [avatar, dispatch]);
 
   const handleSelectAvatar = useCallback((e) => {
     if(!e.target.files){
@@ -62,8 +97,19 @@ const FormFull = () => {
       text: pokemonTypes[item].name.toUpperCase()
     })), []);
 
+  const pokemonStatsAvailable = useMemo(() =>
+    Object.keys(pokemonStats).map(item => ({
+      id: item,
+      label: (
+        <>
+          <img src={pokemonStats[item].image} alt={pokemonStats[item].name} /> {pokemonStats[item].name}
+        </>
+      )
+    })), [])
+
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
+      {JSON.stringify(errors)}
       <S.AvatarInput>
         {avatar && (
           <img src={avatar.preview} alt="avatar" />
@@ -73,7 +119,7 @@ const FormFull = () => {
           <div>
             <img src={plusImg} alt="select" />
           </div>
-          <input type="file" id="avatar"  />
+          <input type="file" id="avatar" name="avatar" ref={register} />
         </label>
       </S.AvatarInput>
 
@@ -93,11 +139,9 @@ const FormFull = () => {
 
 
       <Title text='Estatísticas' />
-      <InputNumber label={(<><img src={shieldImg} alt='defense' /> Defesa</>)} name='defense' ref={register} />
-      <InputNumber label={(<><img src={swordImg} alt='attack' /> Ataque</>)} name='attack' ref={register} />
-      <InputNumber label={(<><img src={shieldImg} alt='defense' /> Defesa especial</>)} name='special_defense' ref={register} />
-      <InputNumber label={(<><img src={swordImg} alt='attack' /> Ataque especial</>)} name='special_attack' ref={register} />
-      <InputNumber label={(<><img src={speedImg} alt='speed' /> Velocidade</>)} name='speed' ref={register} />
+      {pokemonStatsAvailable.map(item => (
+        <InputNumber label={item.label} name={item.id} ref={register} />
+      ))}
 
       <Button text='Criar Pokemon' />
     </S.Form>

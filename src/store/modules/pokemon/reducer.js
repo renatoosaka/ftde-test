@@ -1,6 +1,8 @@
 import produce from 'immer';
 import { ActionTypes } from './types';
 
+import pokemonStats from 'utils/pokemonStats';
+
 const INITIAL_STATE = {
   maxItemsInSlot: 6,
   slots: [],
@@ -23,6 +25,7 @@ const pokemon = (state = INITIAL_STATE, action) => {
       case ActionTypes.fetchRandomPokemonSuccess: {
         const { pokemonData } = action.payload;
         const hpStatIndex = pokemonData.stats.findIndex(item => item.stat.name === 'hp');
+        const statsAvailable = Object.keys(pokemonStats);
 
         draft.pokemon = {
           origin: 'remote',
@@ -31,10 +34,14 @@ const pokemon = (state = INITIAL_STATE, action) => {
           avatar: pokemonData.sprites.other.dream_world.front_default || pokemonData.sprites.other["official-artwork"].front_default,
           name: pokemonData.name,
           hp: hpStatIndex > -1 ? pokemonData.stats[hpStatIndex].base_stat : 0,
-          height:  pokemonData.height,
-          weight: pokemonData.weight,
+          height:  pokemonData.height/10,
+          weight: pokemonData.weight/10,
           types: pokemonData.types.map(item => item.type.name),
-          skills: pokemonData.abilities.map(item => item.ability.name)
+          skills: pokemonData.abilities.map(item => item.ability.name),
+          stats: pokemonData.stats.filter(item => statsAvailable.includes(item.stat.name)).map(item => ({
+            id: item.stat.name,
+            value: item.base_stat
+          }))
         }
         draft.isLoading = false;
         break;
@@ -56,6 +63,7 @@ const pokemon = (state = INITIAL_STATE, action) => {
             archived: true,
           });
           draft.pokemon = null;
+          draft.isCreating = false;
         }
 
         break;

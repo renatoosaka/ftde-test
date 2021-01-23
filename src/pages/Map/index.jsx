@@ -12,11 +12,13 @@ import FormName from "components/FormName";
 import Ash from "components/Ash";
 
 import pokemonTypes from 'utils/pokemonTypes';
+import pokemonStats from 'utils/pokemonStats';
 
 import * as S from "./styled";
 
-import pokeballImg from 'assets/images/pokeball.png'
-import editImg from 'assets/images/editIcon.png'
+import pokeballImg from 'assets/images/pokeball.png';
+import editImg from 'assets/images/editIcon.png';
+import shield from 'assets/images/shield.png';
 
 const MapPage = () => {
   const dispatch = useDispatch();
@@ -86,11 +88,11 @@ const MapPage = () => {
               </div>
               <div>
                 <span>Altura</span>
-                <span>{state.pokemon.height/10}m</span>
+                <span>{state.pokemon.height}m</span>
               </div>
               <div>
                 <span>Peso</span>
-                <span>{state.pokemon.weight/10}kg</span>
+                <span>{state.pokemon.weight}kg</span>
               </div>
             </div>
 
@@ -103,6 +105,19 @@ const MapPage = () => {
             <div id="pokemon-skills">
               <span>{state.pokemon.skills.map(item => item).join(', ')}</span>
             </div>
+
+            <Title text='Estatísticas' />
+            <ul id="pokemon-stats">
+              {state.pokemon.stats.map(item => (
+                <li key={item.id}>
+                  <div>
+                    <img src={pokemonStats[item.id].image} alt={item.id} />
+                    <span>{pokemonStats[item.id].name}</span>
+                  </div>
+                  <span>{item.value}</span>
+                </li>
+              ))}
+            </ul>
 
             <footer>
               {!state.pokemon.archived && (

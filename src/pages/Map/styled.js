@@ -44,6 +44,7 @@ export const ModalContent = styled.div`
     img {
       width: 220px;
       height: 220px;
+      border-radius: 50%;
     }
   }
 
@@ -135,7 +136,7 @@ export const ModalContent = styled.div`
     align-items: center;
     flex-wrap: wrap;
 
-    padding: 24px 0 100px;
+    padding: 24px 0;
 
     span {
       padding: 8px 24px;
@@ -148,6 +149,53 @@ export const ModalContent = styled.div`
       text-transform: uppercase;
 
       color: #2E3A59;
+    }
+  }
+
+  #pokemon-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    padding: 24px 24px 100px;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 12px;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        span {
+          margin-left: 8px;
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: bold;
+          font-size: 12px;
+          line-height: 16px;
+          text-transform: uppercase;
+          color: #2E3A59;
+        }
+      }
+
+      span {
+        margin-left: auto;
+
+        font-family: 'Open Sans';
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 24px;
+        color: #2E3A59;
+        text-align: right;
+      }
     }
   }
 
