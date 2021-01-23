@@ -63,7 +63,7 @@ const MapPage = () => {
               <FormFull />
             )}
 
-            {!state.isEditing && (
+            {(!state.isEditing || (state.isEditing && state.pokemon.origin === 'remote'))  && (
               <>
                 <div id="pokemon-img">
                   <img src={state.pokemon.avatar} alt={state.pokemon.name} />

@@ -89,8 +89,6 @@ const FormFull = () => {
       })
     })
 
-    console.log(avatar);
-    console.log(defaultValue);
     const pokemon = {
       origin: 'user',
       avatar: avatar ? avatar.preview : defaultValue.avatar,
@@ -101,6 +99,10 @@ const FormFull = () => {
       types,
       skills,
       stats,
+    }
+
+    if (!avatar && !defaultValue.avatar) {
+      return;
     }
 
     if (state.isEditing) {
