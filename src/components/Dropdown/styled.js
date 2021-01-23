@@ -6,7 +6,7 @@ export const DropdownWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 1.6rem;
 
-  padding: 20px;
+  padding: 20px 0;
 `;
 
 export const Label = styled.label`
@@ -34,7 +34,7 @@ export const Select = styled.select`
   display: flex;
   flex-direction: column;
   appearance: none;
-  color: #c5cef4;
+  /* color: #c5cef4; */
 
   &:focus,
   &:active {

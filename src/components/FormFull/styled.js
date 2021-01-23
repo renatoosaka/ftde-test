@@ -25,41 +25,37 @@ export const AvatarInput = styled.div`
   border-radius: 50%;
 
   background-color: #fff;
+  background-image: url(${cameraImg});
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   img {
-    /* width: 220px;
+    width: 220px;
     height: 220px;
-    object-fit: n; */
+    border-radius: 50%;
   }
 
   label {
     position: absolute;
-    width: 82px;
-    height: 82px;
+    right: 16px;
+    bottom: 16px;
 
     cursor: pointer;
-
-    background-image: url(${cameraImg});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
 
     input {
       display: none;
     }
 
     div {
-      position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
-
-      bottom: -8px;
-      right: -8px;
 
       width: 32px;
       height: 32px;
@@ -67,6 +63,12 @@ export const AvatarInput = styled.div`
       background-color: #FF3D71;
       border: 2px solid #fff;
       border-radius: 50%;
+
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background-color: #db2c66;
+      }
 
       img {
         width: 16px;
