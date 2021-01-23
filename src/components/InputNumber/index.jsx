@@ -1,24 +1,42 @@
-import React from "react";
+import React, { useState, useCallback, forwardRef } from "react";
 
 import chevron from "assets/images/chevronDownBlack.png";
 
 import * as S from "./styled";
 
-const InputNumber = ({ className, label, placeholder, name, suffix }) => (
-  <S.InputNumberWrapper className={className}>
-    {label && <S.Label>{label}</S.Label>}
+const InputNumber = forwardRef(({ className, label, placeholder, name, suffix, defaultValue, error }, ref) => {
+  const [numberValue, setNumberValue] = useState(defaultValue);
 
-    <S.InputContent>
-      <S.Input value="" type="number" placeholder={placeholder} name={name} />
+  const handleIncValue = useCallback(() => {
+    setNumberValue(Number(numberValue || '0') + 1);
+  }, [numberValue]);
 
-      {suffix && <S.InputSuffix>{suffix}</S.InputSuffix>}
+  const handleDecValue = useCallback(() => {
+    const newValue = Number(numberValue || '0') - 1;
 
-      <S.InputActions>
-        <S.Arrow src={chevron} className="increase" alt="Mais" />
-        <S.Arrow src={chevron} className="decrease" alt="Menos" />
-      </S.InputActions>
-    </S.InputContent>
-  </S.InputNumberWrapper>
-);
+    if (newValue <= 0)  {
+      setNumberValue('');
+    } else {
+      setNumberValue(Number(numberValue || '0') - 1);
+    }
+  }, [numberValue])
+
+  return (
+    <S.InputNumberWrapper className={className}>
+      {label && <S.Label>{label}</S.Label>}
+
+      <S.InputContent>
+        <S.Input type="number" placeholder={placeholder} name={name} defaultValue={numberValue} ref={ref} error={error} />
+
+        {suffix && <S.InputSuffix>{suffix}</S.InputSuffix>}
+
+        <S.InputActions>
+          <S.Arrow src={chevron} className="increase" alt="Mais" onClick={handleIncValue} />
+          <S.Arrow src={chevron} className="decrease" alt="Menos" onClick={handleDecValue} />
+        </S.InputActions>
+      </S.InputContent>
+    </S.InputNumberWrapper>
+  )
+});
 
 export default InputNumber;

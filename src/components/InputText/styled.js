@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const InputTextWrapper = styled.div`
   display: flex;
@@ -36,4 +36,8 @@ export const Input = styled.input`
     color: #c5cef4;
     font-weight: 400;
   }
+
+  ${props => props.error && css`
+    border-color: #db2c2c;
+  `}
 `;
