@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const DropdownWrapper = styled.div`
   position: relative;
@@ -34,12 +34,15 @@ export const Select = styled.select`
   display: flex;
   flex-direction: column;
   appearance: none;
-  /* color: #c5cef4; */
 
   &:focus,
   &:active {
     border-color: #598bff;
   }
+
+  ${props => props.error && css`
+    border-color: #db2c2c;
+  `}
 `;
 
 export const DropdownOption = styled.option`

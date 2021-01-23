@@ -4,12 +4,12 @@ import chevron from "assets/images/chevronDownBlack.png";
 
 import * as S from "./styled";
 
-const DropdownPage = forwardRef(({ label, name, options, defaultValue }, ref) => (
+const DropdownPage = forwardRef(({ label, name, options, defaultValue, error }, ref) => (
   <S.DropdownWrapper>
     {label && <S.Label>{label}</S.Label>}
 
     <S.DropdownContent>
-      <S.Select name={name} ref={ref} defaultValue={defaultValue}>
+      <S.Select name={name} ref={ref} defaultValue={defaultValue} error={error}>
         <S.DropdownOption value="">Selecione o(s) tipo(s)</S.DropdownOption>
         {options &&
           options.map((option, index) => (

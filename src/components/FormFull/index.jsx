@@ -156,24 +156,24 @@ const FormFull = () => {
         </label>
       </S.AvatarInput>
 
-      <InputText label='Nome' name='name' ref={register} defaultValue={defaultValue.name} />
-      <InputNumber label='HP' name='hp' ref={register}  defaultValue={defaultValue.hp} />
-      <InputNumber label='Peso' name='weight' suffix='Kg' ref={register} defaultValue={defaultValue.weight} />
-      <InputNumber label='Altura' name='height' suffix='Cm' ref={register} defaultValue={defaultValue.height} />
+      <InputText label='Nome' name='name' ref={register} defaultValue={defaultValue.name} error={errors.name} />
+      <InputNumber label='HP' name='hp' ref={register}  defaultValue={defaultValue.hp} error={errors.hp} />
+      <InputNumber label='Peso' name='weight' suffix='Kg' ref={register} defaultValue={defaultValue.weight} error={errors.weight} />
+      <InputNumber label='Altura' name='height' suffix='Cm' ref={register} defaultValue={defaultValue.height} error={errors.height} />
 
       <Title text='Tipo' />
-      <DropdownPage options={pokemonTypesOptions} name='type' ref={register} defaultValue={defaultValue.type} />
+      <DropdownPage options={pokemonTypesOptions} name='type' ref={register} defaultValue={defaultValue.type} error={errors.type} />
 
       <Title text='Habilidades' />
-      <InputText label='Habilidade 1' name='skill1' ref={register} defaultValue={defaultValue.skill1} />
-      <InputText label='Habilidade 2' name='skill2' ref={register} defaultValue={defaultValue.skill2} />
-      <InputText label='Habilidade 3' name='skill3' ref={register} defaultValue={defaultValue.skill3} />
-      <InputText label='Habilidade 4' name='skill4' ref={register} defaultValue={defaultValue.skill4} />
+      <InputText label='Habilidade 1' name='skill1' ref={register} defaultValue={defaultValue.skill1} error={errors.skill1} />
+      <InputText label='Habilidade 2' name='skill2' ref={register} defaultValue={defaultValue.skill2} error={errors.skill2} />
+      <InputText label='Habilidade 3' name='skill3' ref={register} defaultValue={defaultValue.skill3} error={errors.skill3} />
+      <InputText label='Habilidade 4' name='skill4' ref={register} defaultValue={defaultValue.skill4} error={errors.skill4} />
 
 
       <Title text='Estatísticas' />
       {pokemonStatsAvailable.map(item => (
-        <InputNumber key={item.id} label={item.label} name={item.id} ref={register} defaultValue={defaultValue[item.id]} />
+        <InputNumber key={item.id} label={item.label} name={item.id} ref={register} defaultValue={defaultValue[item.id]} error={errors[item.id]} />
       ))}
 
       <Button text={state.isEditing ? "Salvar alterações" : "Criar pokemon"} />

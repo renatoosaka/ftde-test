@@ -36,7 +36,7 @@ const FormName = () => {
   return (
     <>
       <S.Form onSubmit={handleSubmit(onSubmit)}>
-        <Input name='name' ref={register} defaultValue={state.pokemon.name} />
+        <Input name='name' ref={register} defaultValue={state.pokemon.name} error={errors.name} />
         <button type="submit">
           <img src={checkmarkImg} alt="save" />
         </button>
@@ -44,7 +44,6 @@ const FormName = () => {
           <img src={closeImg} alt="cancel" />
         </button>
       </S.Form>
-      <p>{errors.name?.message}</p>
     </>
   );
 }

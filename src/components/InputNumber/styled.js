@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const InputNumberWrapper = styled.div`
   display: flex;
@@ -50,6 +50,10 @@ export const Input = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
+
+  ${props => props.error && css`
+    border-color: #db2c2c;
+  `}
 `;
 
 export const InputSuffix = styled.span`
