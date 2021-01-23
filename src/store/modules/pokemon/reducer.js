@@ -50,6 +50,8 @@ const pokemon = (state = INITIAL_STATE, action) => {
       case ActionTypes.cancelRandomPokemon:
       case ActionTypes.fetchRandomPokemonFailure: {
         draft.isLoading = false;
+        draft.isCreating = false;
+        draft.isEditing = false;
         draft.pokemon = null;
         break;
       }

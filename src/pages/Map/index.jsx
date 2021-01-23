@@ -18,7 +18,6 @@ import * as S from "./styled";
 
 import pokeballImg from 'assets/images/pokeball.png';
 import editImg from 'assets/images/editIcon.png';
-import shield from 'assets/images/shield.png';
 
 const MapPage = () => {
   const dispatch = useDispatch();
@@ -60,76 +59,85 @@ const MapPage = () => {
       {state.pokemon && (
         <Modal isShowing={isShowRandomPokemonModal} toggle={handleCloseRandomPokemonModal} >
           <S.ModalContent>
-            <div id="pokemon-img">
-              <img src={state.pokemon.avatar} alt={state.pokemon.name} />
-            </div>
+            {state.isEditing && state.pokemon.origin === 'user' && (
+              <FormFull />
+            )}
 
-            <header>
-              {!state.isEditing && (
-                <h1>
-                  {state.pokemon.name}
-                  {state.pokemon.archived && state.pokemon.origin === 'remote' && (
-                    <button type="button" onClick={handleEditPokemon}>
-                      <img src={editImg} alt='edit' />
+            {!state.isEditing && (
+              <>
+                <div id="pokemon-img">
+                  <img src={state.pokemon.avatar} alt={state.pokemon.name} />
+                </div>
+
+                <header>
+                  {!state.isEditing && (
+                    <h1>
+                      {state.pokemon.name}
+                      {state.pokemon.archived && (
+                        <button type="button" onClick={handleEditPokemon}>
+                          <img src={editImg} alt='edit' />
+                        </button>
+                      )}
+                    </h1>
+                  )}
+                  {state.isEditing && state.pokemon.origin === 'remote' && (
+                    <FormName />
+                  )}
+                </header>
+
+
+                <div id="pokemon-detail">
+                  <div>
+                    <span>HP</span>
+                    <span>{state.pokemon.hp}/{state.pokemon.hp}</span>
+                  </div>
+                  <div>
+                    <span>Altura</span>
+                    <span>{state.pokemon.height}m</span>
+                  </div>
+                  <div>
+                    <span>Peso</span>
+                    <span>{state.pokemon.weight}kg</span>
+                  </div>
+                </div>
+
+                <Title text='Tipo' />
+                <div id="pokemon-type">
+                  {state.pokemon.types.map(item => (<S.PokemonType type={item} key={item}>{pokemonTypes[item].name}</S.PokemonType>))}
+                </div>
+
+                <Title text='Habilidades' />
+                <div id="pokemon-skills">
+                  <span>{state.pokemon.skills.map(item => item).join(', ')}</span>
+                </div>
+
+                <Title text='Estatísticas' />
+                <ul id="pokemon-stats">
+                  {state.pokemon.stats.map(item => (
+                    <li key={item.id}>
+                      <div>
+                        <img src={pokemonStats[item.id].image} alt={item.id} />
+                        <span>{pokemonStats[item.id].name}</span>
+                      </div>
+                      <span>{item.value}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <footer>
+                  {!state.pokemon.archived && (
+                    <button type="button" id="pokeball" onClick={() => handleAddPokemonToSlot(state.pokemon)}>
+                      <img src={pokeballImg} alt="Pokeball" />
                     </button>
                   )}
-                </h1>
-              )}
-              {state.isEditing && state.pokemon.origin === 'remote' && (
-                <FormName />
-              )}
-            </header>
 
+                  {state.pokemon.archived && (
+                    <Button text='liberar pokemon' onClick={() => handleReleasePokemon(state.pokemon.id)} />
+                  )}
+                </footer>
+              </>
+            )}
 
-            <div id="pokemon-detail">
-              <div>
-                <span>HP</span>
-                <span>{state.pokemon.hp}/{state.pokemon.hp}</span>
-              </div>
-              <div>
-                <span>Altura</span>
-                <span>{state.pokemon.height}m</span>
-              </div>
-              <div>
-                <span>Peso</span>
-                <span>{state.pokemon.weight}kg</span>
-              </div>
-            </div>
-
-            <Title text='Tipo' />
-            <div id="pokemon-type">
-              {state.pokemon.types.map(item => (<S.PokemonType type={item} key={item}>{pokemonTypes[item].name}</S.PokemonType>))}
-            </div>
-
-            <Title text='Habilidades' />
-            <div id="pokemon-skills">
-              <span>{state.pokemon.skills.map(item => item).join(', ')}</span>
-            </div>
-
-            <Title text='Estatísticas' />
-            <ul id="pokemon-stats">
-              {state.pokemon.stats.map(item => (
-                <li key={item.id}>
-                  <div>
-                    <img src={pokemonStats[item.id].image} alt={item.id} />
-                    <span>{pokemonStats[item.id].name}</span>
-                  </div>
-                  <span>{item.value}</span>
-                </li>
-              ))}
-            </ul>
-
-            <footer>
-              {!state.pokemon.archived && (
-                <button type="button" id="pokeball" onClick={() => handleAddPokemonToSlot(state.pokemon)}>
-                  <img src={pokeballImg} alt="Pokeball" />
-                </button>
-              )}
-
-              {state.pokemon.archived && (
-                <Button text='liberar pokemon' onClick={() => handleReleasePokemon(state.pokemon.id)} />
-              )}
-            </footer>
           </S.ModalContent>
         </Modal>
 
