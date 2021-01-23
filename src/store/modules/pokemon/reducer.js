@@ -6,7 +6,6 @@ import pokemonStats from 'utils/pokemonStats';
 const INITIAL_STATE = {
   maxItemsInSlot: 6,
   slots: [],
-  ashState: 0,
   isLoading: false,
   pokemon: null,
   isEditing: false,
