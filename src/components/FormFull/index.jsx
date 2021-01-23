@@ -139,7 +139,6 @@ const FormFull = () => {
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
-      {JSON.stringify(errors)}
       <S.AvatarInput>
         {avatar && (
           <img src={avatar.preview} alt="avatar" />

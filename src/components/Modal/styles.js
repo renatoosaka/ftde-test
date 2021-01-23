@@ -14,12 +14,17 @@ export const Container = styled.div`
   z-index: 100;
   background: linear-gradient(90deg, #43E97B 0%, #38F9D7 100%);
   position: absolute;
-  width: 360px;
-  height:560px;
+
+  width: 100%;
+  height: 100vh;
+  max-width: 360px;
+  max-height: 560px;
+
   border-radius: 8px;
-  margin: 12px;
+
   left: 50%;
   top: 50%;
+
   transform: translate(-50%, -50%);
 
   > button {
