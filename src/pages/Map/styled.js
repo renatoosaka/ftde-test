@@ -42,9 +42,8 @@ export const ModalContent = styled.div`
     align-items: center;
 
     img {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
+      width: 160px;
+      height: 160px;
     }
   }
 

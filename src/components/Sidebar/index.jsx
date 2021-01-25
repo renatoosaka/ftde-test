@@ -21,7 +21,6 @@ const Sidebar = () => {
   }, [dispatch]);
 
   const handleCreatePokemon = useCallback(() => {
-    console.log('create pokemon')
     dispatch(createPokemon());
   }, [dispatch]);
 

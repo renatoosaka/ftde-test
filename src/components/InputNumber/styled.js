@@ -69,9 +69,8 @@ export const InputSuffix = styled.span`
 export const InputActions = styled.div`
   position: absolute;
   right: 2px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 46px;
+  top: 2px;
+  height: 43px;
   overflow: hidden;
   display: flex;
   flex-direction: column;

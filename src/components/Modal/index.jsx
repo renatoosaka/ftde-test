@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types';
 
 import * as S from './styles'
 
 import closeImg from 'assets/images/close.png';
 
-export default ({ isShowing, toggle, children }) => isShowing ? ReactDOM.createPortal(
+const Modal = ({ isShowing, toggle, children }) => isShowing ? ReactDOM.createPortal(
   <S.Overlay>
     <S.Container>
       <button type="button" onClick={toggle}>
@@ -30,3 +31,11 @@ export const useModal = () => {
     toggle,
   }
 }
+
+Modal.propTypes = {
+  isShowing: PropTypes.bool,
+  toggle: PropTypes.func,
+  children:  PropTypes.node
+}
+
+export default Modal;
